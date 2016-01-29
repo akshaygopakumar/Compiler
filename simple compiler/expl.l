@@ -17,6 +17,8 @@
 "then"		{return THEN;}
 "else"		{return ELSE;}
 "endif"		{return ENDIF;}
+"while"     {return WHILE;}
+"endwhile"  {return ENDWHILE;}  
 [=]         { return ASGN;}
 [+]		{ return PLUS;}
 [-]		{return MINUS;}
