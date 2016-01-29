@@ -1,6 +1,6 @@
 extern int *var[26];
 
-Node * makeLeafNode(int TYPE,int NODETYPE,int VALUE,char *NAME,struct Tnode *ArgList)
+Node * makeLeafNode(int TYPE,int NODETYPE,int VALUE,char *NAME)
 {
 	Node *temp;
     temp = (Node*)malloc(sizeof(Node));
@@ -16,7 +16,7 @@ Node * makeLeafNode(int TYPE,int NODETYPE,int VALUE,char *NAME,struct Tnode *Arg
 
 
 
-Node * makeOperatorNode(int TYPE,int NODETYPE,int VALUE,char *NAME,struct Tnode *ArgList,Node* Ptr1,Node* Ptr2,Node* Ptr3)
+Node * makeOperatorNode(int TYPE,int NODETYPE,int VALUE,char *NAME,Node* Ptr1,Node* Ptr2,Node* Ptr3)
 {
 	
     Node *temp;
