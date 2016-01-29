@@ -16,7 +16,7 @@
 };
                                     
 
-%token MUL PLUS MINUS  DIV READ WRITE ASGN IF THEN ELSE ENDIF L G LE GE NE EQ
+%token MUL PLUS MINUS  DIV READ WRITE ASGN IF THEN ELSE ENDIF L G LE GE NE EQ WHILE ENDWHILE
 %token <integer> NUM
 %token <character> ID
 
@@ -32,8 +32,7 @@
 
 
 program:	 expr ';' '\n'				{evaluate($1);}		
-			| stmt_list '\n'				{evaluate($1);
-													}
+			| stmt_list '\n'				{evaluate($1);}
 			|
 			; 
 

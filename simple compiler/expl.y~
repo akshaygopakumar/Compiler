@@ -16,7 +16,7 @@
 };
                                     
 
-%token MUL PLUS MINUS  DIV READ WRITE ASGN IF THEN ELSE ENDIF L G LE GE NE EQ
+%token MUL PLUS MINUS  DIV READ WRITE ASGN IF THEN ELSE ENDIF L G LE GE NE EQ ENDWHILE
 %token <integer> NUM
 %token <character> ID
 
@@ -32,8 +32,7 @@
 
 
 program:	 expr ';' '\n'				{evaluate($1);}		
-			| stmt_list '\n'				{evaluate($1);
-													}
+			| stmt_list '\n'				{evaluate($1);}
 			|
 			; 
 
@@ -67,7 +66,7 @@ expr:	NUM					 	  {$$ = makeLeafNode(INTEGER,LEAF,$1,NULL);}
 		|'(' expr ')'				{$$=$2;}
 		|IF '(' expr ')' THEN stmt_list ENDIF {$$ = makeOperatorNode(INTEGER,IF,0,NULL,$3,$6,NULL);}
 		|IF '(' expr ')' THEN stmt_list ELSE stmt_list ENDIF {$$ = makeOperatorNode(INTEGER,IF,0,NULL,$3,$6,$8);}
-		|WHILE '(' expr ')'THEN stmt_list ENDWHILE
+		|WHILE '(' expr ')'THEN stmt_list ENDWHILE {$$ = makeOperatorNode(INTEGER,WHILE,0,NULL,$3,$6,NULL);}
         ;
 
 %%
