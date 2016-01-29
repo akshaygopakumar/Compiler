@@ -67,6 +67,7 @@ expr:	NUM					 	  {$$ = makeLeafNode(INTEGER,LEAF,$1,NULL);}
 		|'(' expr ')'				{$$=$2;}
 		|IF '(' expr ')' THEN stmt_list ENDIF {$$ = makeOperatorNode(INTEGER,IF,0,NULL,$3,$6,NULL);}
 		|IF '(' expr ')' THEN stmt_list ELSE stmt_list ENDIF {$$ = makeOperatorNode(INTEGER,IF,0,NULL,$3,$6,$8);}
+		|WHILE '(' expr ')'THEN stmt_list ENDWHILE {$$ = makeOperatorNode(INTEGER,WHILE,0,NULL,$3,$6,NULL);}
         ;
 
 %%
@@ -121,7 +122,10 @@ int evaluate(Node *t){
 						else if(t->Ptr3)
 							evaluate(t->Ptr3);
 						break;
-
+			case WHILE:
+						while(evaluate(t->Ptr1))
+							evaluate(t->Ptr2);
+						break;
 			case  L :  return evaluate(t->Ptr1) < evaluate(t->Ptr2);
                        break;
 		    case  G : return evaluate(t->Ptr1) > evaluate(t->Ptr2);
