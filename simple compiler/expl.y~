@@ -42,13 +42,13 @@ stmt_list: stmt_list stmt  ';' 	{	$$ = makeOperatorNode(INTEGER,'S',0,NULL,$1,$2
 
 stmt : ID ASGN expr 			{
 									
-									$$ = makeOperatorNode(INTEGER,'=',0,NULL,NULL,makeLeafNode(INTEGER,-2,0,&$1),$3); 																																					
+									$$ = makeOperatorNode(INTEGER,ASGN,0,NULL,makeLeafNode(INTEGER,-2,0,&$1),$3,NULL); 																																					
 								}
      | READ '(' ID ')'			{
-									$$ =  makeOperatorNode(INTEGER,READ,0,NULL,NULL,makeLeafNode(INTEGER,-2,0,&$3),NULL,NULL);
+									$$ =  makeOperatorNode(INTEGER,READ,0,NULL,makeLeafNode(INTEGER,-2,0,&$3),NULL,NULL);
 								}
      | WRITE '(' expr ')'		{
-									$$ =  makeOperatorNode(INTEGER,WRITE,0,NULL,NULL,$3,NULL,NULL);
+									$$ =  makeOperatorNode(INTEGER,WRITE,0,NULL,$3,NULL,NULL);
 								}
      ;
 

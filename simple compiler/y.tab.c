@@ -1304,13 +1304,13 @@ yyreduce:
 
   case 5:
 #line 40 "expl.y" /* yacc.c:1646  */
-    {	(yyval.nodePtr) = makeOperatorNode(INTEGER,'S',0,NULL,NULL,(yyvsp[-2].nodePtr),(yyvsp[-1].nodePtr),NULL); }
+    {	(yyval.nodePtr) = makeOperatorNode(INTEGER,'S',0,NULL,(yyvsp[-2].nodePtr),(yyvsp[-1].nodePtr),NULL); }
 #line 1309 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
 #line 41 "expl.y" /* yacc.c:1646  */
-    {	(yyval.nodePtr) = (yyvsp[-1].nodePtr) ;													}
+    {	(yyval.nodePtr) = (yyvsp[-1].nodePtr) ;}
 #line 1315 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1318,7 +1318,7 @@ yyreduce:
 #line 43 "expl.y" /* yacc.c:1646  */
     {
 									
-									(yyval.nodePtr) = makeOperatorNode(INTEGER,'=',0,NULL,NULL,makeLeafNode(INTEGER,-2,0,&(yyvsp[-2].character),NULL),(yyvsp[0].nodePtr),NULL); 																																					
+									(yyval.nodePtr) = makeOperatorNode(INTEGER,ASGN,0,NULL,makeLeafNode(INTEGER,-2,0,&(yyvsp[-2].character)),(yyvsp[0].nodePtr),NULL); 																																					
 								}
 #line 1324 "y.tab.c" /* yacc.c:1646  */
     break;
@@ -1326,7 +1326,7 @@ yyreduce:
   case 8:
 #line 47 "expl.y" /* yacc.c:1646  */
     {
-									(yyval.nodePtr) =  makeOperatorNode(INTEGER,READ,0,NULL,NULL,makeLeafNode(INTEGER,-2,0,&(yyvsp[-1].character),NULL),NULL,NULL);
+									(yyval.nodePtr) =  makeOperatorNode(INTEGER,READ,0,NULL,makeLeafNode(INTEGER,-2,0,&(yyvsp[-1].character)),NULL,NULL);
 								}
 #line 1332 "y.tab.c" /* yacc.c:1646  */
     break;
@@ -1334,70 +1334,70 @@ yyreduce:
   case 9:
 #line 50 "expl.y" /* yacc.c:1646  */
     {
-									(yyval.nodePtr) =  makeOperatorNode(INTEGER,WRITE,0,NULL,NULL,(yyvsp[-1].nodePtr),NULL,NULL);
+									(yyval.nodePtr) =  makeOperatorNode(INTEGER,WRITE,0,NULL,(yyvsp[-1].nodePtr),NULL,NULL);
 								}
 #line 1340 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
 #line 55 "expl.y" /* yacc.c:1646  */
-    {(yyval.nodePtr) = makeLeafNode(INTEGER,LEAF,(yyvsp[0].integer),NULL,NULL);}
+    {(yyval.nodePtr) = makeLeafNode(INTEGER,LEAF,(yyvsp[0].integer),NULL);}
 #line 1346 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
 #line 56 "expl.y" /* yacc.c:1646  */
     {
-										(yyval.nodePtr) = makeLeafNode(INTEGER,-2,0,&(yyvsp[0].character),NULL);
+										(yyval.nodePtr) = makeLeafNode(INTEGER,-2,0,&(yyvsp[0].character));
 								  }
 #line 1354 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
 #line 59 "expl.y" /* yacc.c:1646  */
-    {(yyval.nodePtr) =  makeOperatorNode(INTEGER,'+',0,NULL,NULL,(yyvsp[-2].nodePtr),(yyvsp[0].nodePtr),NULL);}
+    {(yyval.nodePtr) =  makeOperatorNode(INTEGER,PLUS,0,NULL,(yyvsp[-2].nodePtr),(yyvsp[0].nodePtr),NULL);}
 #line 1360 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
 #line 60 "expl.y" /* yacc.c:1646  */
-    {(yyval.nodePtr) = makeOperatorNode(INTEGER,'-',0,NULL,NULL,(yyvsp[-2].nodePtr),(yyvsp[0].nodePtr),NULL); }
+    {(yyval.nodePtr) = makeOperatorNode(INTEGER,MINUS,0,NULL,(yyvsp[-2].nodePtr),(yyvsp[0].nodePtr),NULL); }
 #line 1366 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
 #line 61 "expl.y" /* yacc.c:1646  */
-    {(yyval.nodePtr) = makeOperatorNode(INTEGER,L,0,NULL,NULL,(yyvsp[-2].nodePtr),(yyvsp[0].nodePtr),NULL); }
+    {(yyval.nodePtr) = makeOperatorNode(INTEGER,L,0,NULL,(yyvsp[-2].nodePtr),(yyvsp[0].nodePtr),NULL); }
 #line 1372 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
 #line 62 "expl.y" /* yacc.c:1646  */
-    {(yyval.nodePtr) = makeOperatorNode(INTEGER,G,0,NULL,NULL,(yyvsp[-2].nodePtr),(yyvsp[0].nodePtr),NULL); }
+    {(yyval.nodePtr) = makeOperatorNode(INTEGER,G,0,NULL,(yyvsp[-2].nodePtr),(yyvsp[0].nodePtr),NULL); }
 #line 1378 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
 #line 63 "expl.y" /* yacc.c:1646  */
-    {(yyval.nodePtr) = makeOperatorNode(INTEGER,LE,0,NULL,NULL,(yyvsp[-2].nodePtr),(yyvsp[0].nodePtr),NULL); }
+    {(yyval.nodePtr) = makeOperatorNode(INTEGER,LE,0,NULL,(yyvsp[-2].nodePtr),(yyvsp[0].nodePtr),NULL); }
 #line 1384 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
 #line 64 "expl.y" /* yacc.c:1646  */
-    {(yyval.nodePtr) = makeOperatorNode(INTEGER,GE,0,NULL,NULL,(yyvsp[-2].nodePtr),(yyvsp[0].nodePtr),NULL); }
+    {(yyval.nodePtr) = makeOperatorNode(INTEGER,GE,0,NULL,(yyvsp[-2].nodePtr),(yyvsp[0].nodePtr),NULL); }
 #line 1390 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
 #line 65 "expl.y" /* yacc.c:1646  */
-    {(yyval.nodePtr) = makeOperatorNode(INTEGER,EQ,0,NULL,NULL,(yyvsp[-2].nodePtr),(yyvsp[0].nodePtr),NULL); }
+    {(yyval.nodePtr) = makeOperatorNode(INTEGER,EQ,0,NULL,(yyvsp[-2].nodePtr),(yyvsp[0].nodePtr),NULL); }
 #line 1396 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
 #line 66 "expl.y" /* yacc.c:1646  */
-    {(yyval.nodePtr) = makeOperatorNode(INTEGER,NE,0,NULL,NULL,(yyvsp[-2].nodePtr),(yyvsp[0].nodePtr),NULL); }
+    {(yyval.nodePtr) = makeOperatorNode(INTEGER,NE,0,NULL,(yyvsp[-2].nodePtr),(yyvsp[0].nodePtr),NULL); }
 #line 1402 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1409,13 +1409,13 @@ yyreduce:
 
   case 21:
 #line 68 "expl.y" /* yacc.c:1646  */
-    {(yyval.nodePtr) = makeOperatorNode(INTEGER,IF,0,NULL,NULL,(yyvsp[-4].nodePtr),(yyvsp[-1].nodePtr),NULL);}
+    {(yyval.nodePtr) = makeOperatorNode(INTEGER,IF,0,NULL,(yyvsp[-4].nodePtr),(yyvsp[-1].nodePtr),NULL);}
 #line 1414 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
 #line 69 "expl.y" /* yacc.c:1646  */
-    {(yyval.nodePtr) = makeOperatorNode(INTEGER,IF,0,NULL,NULL,(yyvsp[-6].nodePtr),(yyvsp[-3].nodePtr),(yyvsp[-1].nodePtr));}
+    {(yyval.nodePtr) = makeOperatorNode(INTEGER,IF,0,NULL,(yyvsp[-6].nodePtr),(yyvsp[-3].nodePtr),(yyvsp[-1].nodePtr));}
 #line 1420 "y.tab.c" /* yacc.c:1646  */
     break;
 
@@ -1669,15 +1669,15 @@ int evaluate(Node *t){
 		}
     else{
         switch((t->NODETYPE)){
-            case '+' : return evaluate(t->Ptr1) + evaluate(t->Ptr2);
+            case PLUS : return evaluate(t->Ptr1) + evaluate(t->Ptr2);
                        break;
-            case '-' : return evaluate(t->Ptr1) - evaluate(t->Ptr2);
+            case MINUS : return evaluate(t->Ptr1) - evaluate(t->Ptr2);
                        break;
-            case '*' : return evaluate(t->Ptr1) * evaluate(t->Ptr2);
+            case MUL : return evaluate(t->Ptr1) * evaluate(t->Ptr2);
                        break;
-            case '/' : return evaluate(t->Ptr1) / evaluate(t->Ptr2);
+            case DIV : return evaluate(t->Ptr1) / evaluate(t->Ptr2);
                        break;
-			case '=' :	
+			case ASGN :	
 						t->Ptr1->VALUE =  evaluate(t->Ptr2);
 						break;
 

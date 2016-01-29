@@ -3,7 +3,7 @@ extern int *var[26];
 Node * makeLeafNode(int TYPE,int NODETYPE,int VALUE,char *NAME)
 {
 	Node *temp;
-    temp = (Node*)malloc(sizeof(Node));
+    temp = (Node*) malloc(sizeof(Node));
     temp->NAME = malloc(sizeof(char));
 	if(NAME)
 		strcpy(temp->NAME,NAME);
@@ -21,7 +21,7 @@ Node * makeOperatorNode(int TYPE,int NODETYPE,int VALUE,char *NAME,Node* Ptr1,No
 	
     Node *temp;
 	
-    temp = (Node *)malloc(sizeof(Node));
+    temp = (Node *) malloc(sizeof(Node));
     
 	temp->NODETYPE = NODETYPE;
 	temp->Ptr1 = Ptr1;
