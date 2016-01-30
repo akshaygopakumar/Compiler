@@ -11,7 +11,7 @@
 
 %union{
 	  int integer;
-	  char character;
+	  char* character;
 	  struct Tnode * nodePtr; 
 };
                                     
@@ -31,13 +31,24 @@
 %%
 
 
-program:	 program expr ';' '\n'				{printf("%d\n",evaluate($2));}		
-			|program stmt_list '\n'				{evaluate($2);}
+program:	 //program  expr ';' '\n'				{printf("%d\n",evaluate($2));}		
+			program declaration stmt_list '\n'				{evaluate($2);}
 			|									{}
 			; 
 
+
+declaration : "decl" decls "enddecl" ; 
+
+decls		: decls decl ';'
+			  |decl ';'
+
+decl		: INT ID			{Ginstall($2,INTEGER,1,);}
+			| INT ID '[' NUM ']' {Ginstall($2,INTEGER,$4);}
+			| BOOL ID
+
 stmt_list: stmt_list stmt  ';' 	{	$$ = makeOperatorNode(INTEGER,'S',0,NULL,$1,$2,NULL); }
 		|stmt ';'				{	$$ = $1 ;}
+ 
 
 stmt : ID ASGN expr 			{
 									
