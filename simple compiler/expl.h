@@ -17,11 +17,10 @@ int NODETYPE;
 
 * b) statement Type : (WHILE, READ etc.) for statements */
 
-char NAME; // For Identifiers/Functions
+char* NAME; // For Identifiers/Functions
 
 int VALUE; // for constants
 
-struct Tnode *ArgList; // List of arguments for functions
 
 struct Tnode *Ptr1, *Ptr2, *Ptr3;
 
@@ -30,9 +29,9 @@ struct Tnode *Ptr1, *Ptr2, *Ptr3;
 
 } Node;
 
-Node * makeLeafNode(int TYPE,int NODETYPE,int VALUE,char NAME);
+Node * makeLeafNode(int TYPE,int NODETYPE,int VALUE,char* NAME);
 
-Node * makeOperatorNode(int TYPE,int NODETYPE,int VALUE,char NAME,Node* Ptr1,Node* Ptr2,Node* Ptr3);
+Node * makeOperatorNode(int TYPE,int NODETYPE,int VALUE,char* NAME,Node* Ptr1,Node* Ptr2,Node* Ptr3);
 
 int evaluate(Node *);
 
@@ -54,7 +53,6 @@ int SIZE; // Size field for arrays
 int BINDING; // Address of the Identifier in Memory
 
 
-/***Argstruct must store the name and type of each argument ***/
 
 struct Gsymbol *NEXT; // Pointer to next Symbol Table Entry */
 
@@ -66,14 +64,3 @@ void Ginstall(NAME, TYPE, SIZE, ARGLIST); // Installation
 
  
 
-struct Lsymbol {
-
-/* Here only name, type, binding and pointer to next entry needed */
-
-}
-
-struct Lsymbol *Llookup(NAME);
-
-void Linstall(NAME, TYPE);
-
- 

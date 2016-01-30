@@ -17,11 +17,10 @@ int NODETYPE;
 
 * b) statement Type : (WHILE, READ etc.) for statements */
 
-char NAME; // For Identifiers/Functions
+char* NAME; // For Identifiers/Functions
 
 int VALUE; // for constants
 
-struct Tnode *ArgList; // List of arguments for functions
 
 struct Tnode *Ptr1, *Ptr2, *Ptr3;
 
@@ -30,9 +29,38 @@ struct Tnode *Ptr1, *Ptr2, *Ptr3;
 
 } Node;
 
-Node * makeLeafNode(int TYPE,int NODETYPE,int VALUE,char NAME);
+Node * makeLeafNode(int TYPE,int NODETYPE,int VALUE,char* NAME);
 
-Node * makeOperatorNode(int TYPE,int NODETYPE,int VALUE,char NAME,Node* Ptr1,Node* Ptr2,Node* Ptr3);
+Node * makeOperatorNode(int TYPE,int NODETYPE,int VALUE,char* NAME,Node* Ptr1,Node* Ptr2,Node* Ptr3);
 
 int evaluate(Node *);
+
+
+/* Sample Global and Local Symbol Table Structure */
+
+/** Symbol Table Entry is required for variables, arrays and functions**/
+
+struct Gsymbol {
+
+char *NAME; // Name of the Identifier
+
+int TYPE; // TYPE can be INTEGER or BOOLEAN
+
+/***The TYPE field must be a TypeStruct if user defined types are allowed***/
+
+int SIZE; // Size field for arrays
+
+int BINDING; // Address of the Identifier in Memory
+
+
+
+struct Gsymbol *NEXT; // Pointer to next Symbol Table Entry */
+
+}
+
+struct Gsymbol *Glookup(NAME); // Look up for a global identifier
+
+void Ginstall(NAME, TYPE, SIZE, ARGLIST); // Installation
+
+ 
 
