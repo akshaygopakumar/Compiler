@@ -28,5 +28,4 @@ Node * makeOperatorNode(int TYPE,int NODETYPE,int VALUE,char NAME,Node* Ptr1,Nod
 	
     return temp;
 }
-
-
+ 

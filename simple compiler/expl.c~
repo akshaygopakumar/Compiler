@@ -1,4 +1,4 @@
-extern int *var[26];
+extern int var[26];
 
 Node * makeLeafNode(int TYPE,int NODETYPE,int VALUE,char NAME)
 {
@@ -28,5 +28,4 @@ Node * makeOperatorNode(int TYPE,int NODETYPE,int VALUE,char NAME,Node* Ptr1,Nod
 	
     return temp;
 }
-
-
+ 
