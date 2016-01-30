@@ -29,3 +29,40 @@ Node * makeOperatorNode(int TYPE,int NODETYPE,int VALUE,char NAME,Node* Ptr1,Nod
     return temp;
 }
  
+
+struct Gsymbol *Glookup(NAME)
+{
+	struct Gsymbol *temp;
+	temp = beg;
+	while(temp!=NULL)
+		{
+			if(strcmp(temp->NAME,NAME)==0)
+				return temp;		
+			temp = temp->NEXT;
+		}
+
+		return NULL;
+}
+
+void Ginstall(NAME, TYPE, SIZE)
+{
+	if(Glookup(NAME)==NULL)
+		return;
+	else
+	{
+	struct Gsymbol *temp;
+	temp = beg;
+	while(temp!=NULL)
+		{
+			temp = temp->NEXT;
+		}
+	newSymbol = (struct Gsymbol*) malloc(sizeof(struct Gsymbol));
+	strcpy(newSymbol->NAME,NAME);
+	newSymbol->TYPE = TYPE;
+	newSymbol->BINDING = malloc(sizeof(int)*SIZE);
+	newSymbol->SIZE = SIZE;
+	temp->NEXT = newSymbol;	
+	}		
+	
+
+}
