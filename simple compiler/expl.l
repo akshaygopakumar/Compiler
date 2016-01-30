@@ -9,7 +9,7 @@
 
 %%
 
-[a-z]    { yylval.character = yytext[0];return ID;}
+[a-z]+[a-z0-9]*    { strcpy(yylval.character,yytext);return ID;}
 [0-9]+   { yylval.integer = atoi(yytext); return NUM;}
 "read"    { return READ;}
 "write"    {return WRITE;}
