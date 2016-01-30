@@ -62,8 +62,10 @@ extern int yydebug;
     GE = 272,
     NE = 273,
     EQ = 274,
-    NUM = 275,
-    ID = 276
+    WHILE = 275,
+    ENDWHILE = 276,
+    NUM = 277,
+    ID = 278
   };
 #endif
 /* Tokens.  */
@@ -84,8 +86,10 @@ extern int yydebug;
 #define GE 272
 #define NE 273
 #define EQ 274
-#define NUM 275
-#define ID 276
+#define WHILE 275
+#define ENDWHILE 276
+#define NUM 277
+#define ID 278
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -98,7 +102,7 @@ union YYSTYPE
 	  char character;
 	  struct Tnode * nodePtr; 
 
-#line 102 "y.tab.h" /* yacc.c:1909  */
+#line 106 "y.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

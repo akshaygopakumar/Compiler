@@ -17,7 +17,7 @@ int NODETYPE;
 
 * b) statement Type : (WHILE, READ etc.) for statements */
 
-char* NAME; // For Identifiers/Functions
+char NAME; // For Identifiers/Functions
 
 int VALUE; // for constants
 
@@ -30,9 +30,9 @@ struct Tnode *Ptr1, *Ptr2, *Ptr3;
 
 } Node;
 
-Node * makeLeafNode(int TYPE,int NODETYPE,int VALUE,char* NAME);
+Node * makeLeafNode(int TYPE,int NODETYPE,int VALUE,char NAME);
 
-Node * makeOperatorNode(int TYPE,int NODETYPE,int VALUE,char* NAME,Node* Ptr1,Node* Ptr2,Node* Ptr3);
+Node * makeOperatorNode(int TYPE,int NODETYPE,int VALUE,char NAME,Node* Ptr1,Node* Ptr2,Node* Ptr3);
 
 int evaluate(Node *);
 
