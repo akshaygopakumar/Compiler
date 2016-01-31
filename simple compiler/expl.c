@@ -1,20 +1,27 @@
-extern int var[26];
 
-Node * makeLeafNode(int TYPE,int NODETYPE,int VALUE,char NAME)
+Node * makeLeafNode(int TYPE,int NODETYPE,int VALUE,char* NAME)
 {
 	Node *temp;
+	struct Gsymbol *tempSymbol;
     temp = (Node*) malloc(sizeof(Node));
-    temp->NAME = NAME;
+	temp->NAME = (char *)malloc(sizeof(char));
+    strcpy(temp->NAME,NAME);
 	temp->TYPE = TYPE;
 	temp->NODETYPE = NODETYPE;
 	temp->VALUE=VALUE;
+	if (NODETYPE == ID)
+	{
+		tempSymbol = Glookup(NAME);
+		if(tempSymbol==NULL)
+			printf("The variable is not defined\n");	
+	}
 
 	return temp;
 }
 
 
 
-Node * makeOperatorNode(int TYPE,int NODETYPE,int VALUE,char NAME,Node* Ptr1,Node* Ptr2,Node* Ptr3)
+Node * makeOperatorNode(int TYPE,int NODETYPE,int VALUE,char* NAME,Node* Ptr1,Node* Ptr2,Node* Ptr3)
 {
 	
     Node *temp;
@@ -30,9 +37,11 @@ Node * makeOperatorNode(int TYPE,int NODETYPE,int VALUE,char NAME,Node* Ptr1,Nod
 }
  
 
-struct Gsymbol *Glookup(NAME)
+struct Gsymbol *Glookup(char * NAME)
 {
+	printf("asd\n");
 	struct Gsymbol *temp;
+	
 	temp = beg;
 	while(temp!=NULL)
 		{
@@ -44,25 +53,44 @@ struct Gsymbol *Glookup(NAME)
 		return NULL;
 }
 
-void Ginstall(NAME, TYPE, SIZE)
+void Ginstall(char * NAME, int TYPE,int SIZE)
 {
-	if(Glookup(NAME)==NULL)
-		return;
+	
+	if(Glookup(NAME)!=NULL)
+		printf("Redeclaration of variable\n");
 	else
 	{
+	
 	struct Gsymbol *temp;
+	struct Gsymbol *newSymbol;	
 	temp = beg;
-	while(temp!=NULL)
+	if(!beg)
+		{
+		newSymbol = (struct Gsymbol*) malloc(sizeof(struct Gsymbol));
+		newSymbol->NAME = (char*) malloc(sizeof(char));
+		strcpy(newSymbol->NAME,NAME);
+		newSymbol->TYPE = TYPE;
+		newSymbol->BINDING = (int *)malloc(sizeof(int)*SIZE);
+		newSymbol->SIZE = SIZE;
+		newSymbol->NEXT = NULL;
+		beg = newSymbol;printf("asds\n");	
+		}
+	else
+	{
+		while(temp->NEXT!=NULL)
 		{
 			temp = temp->NEXT;
 		}
 	newSymbol = (struct Gsymbol*) malloc(sizeof(struct Gsymbol));
+	newSymbol->NAME = (char*) malloc(sizeof(char));
 	strcpy(newSymbol->NAME,NAME);
 	newSymbol->TYPE = TYPE;
-	newSymbol->BINDING = malloc(sizeof(int)*SIZE);
+	newSymbol->BINDING = (int *)malloc(sizeof(int)*SIZE);
 	newSymbol->SIZE = SIZE;
+	newSymbol->NEXT = NULL;
 	temp->NEXT = newSymbol;	
-	}		
+	}
+}		
 	
 
 }

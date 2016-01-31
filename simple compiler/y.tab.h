@@ -45,64 +45,72 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    MUL = 258,
-    PLUS = 259,
-    MINUS = 260,
-    DIV = 261,
-    READ = 262,
-    WRITE = 263,
-    ASGN = 264,
-    IF = 265,
-    THEN = 266,
-    ELSE = 267,
-    ENDIF = 268,
-    L = 269,
-    G = 270,
-    LE = 271,
-    GE = 272,
-    NE = 273,
-    EQ = 274,
-    WHILE = 275,
-    ENDWHILE = 276,
-    NUM = 277,
-    ID = 278
+    DECL = 258,
+    ENDDECL = 259,
+    MUL = 260,
+    PLUS = 261,
+    MINUS = 262,
+    DIV = 263,
+    READ = 264,
+    WRITE = 265,
+    ASGN = 266,
+    IF = 267,
+    THEN = 268,
+    ELSE = 269,
+    ENDIF = 270,
+    L = 271,
+    G = 272,
+    LE = 273,
+    GE = 274,
+    NE = 275,
+    EQ = 276,
+    WHILE = 277,
+    ENDWHILE = 278,
+    BOOL = 279,
+    INT = 280,
+    NUM = 281,
+    ID = 282
   };
 #endif
 /* Tokens.  */
-#define MUL 258
-#define PLUS 259
-#define MINUS 260
-#define DIV 261
-#define READ 262
-#define WRITE 263
-#define ASGN 264
-#define IF 265
-#define THEN 266
-#define ELSE 267
-#define ENDIF 268
-#define L 269
-#define G 270
-#define LE 271
-#define GE 272
-#define NE 273
-#define EQ 274
-#define WHILE 275
-#define ENDWHILE 276
-#define NUM 277
-#define ID 278
+#define DECL 258
+#define ENDDECL 259
+#define MUL 260
+#define PLUS 261
+#define MINUS 262
+#define DIV 263
+#define READ 264
+#define WRITE 265
+#define ASGN 266
+#define IF 267
+#define THEN 268
+#define ELSE 269
+#define ENDIF 270
+#define L 271
+#define G 272
+#define LE 273
+#define GE 274
+#define NE 275
+#define EQ 276
+#define WHILE 277
+#define ENDWHILE 278
+#define BOOL 279
+#define INT 280
+#define NUM 281
+#define ID 282
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE YYSTYPE;
 union YYSTYPE
 {
-#line 12 "expl.y" /* yacc.c:1909  */
+#line 1 "expl.y" /* yacc.c:1909  */
 
 	  int integer;
-	  char character;
+	  char* character;
 	  struct Tnode * nodePtr; 
 
-#line 106 "y.tab.h" /* yacc.c:1909  */
+#line 114 "y.tab.h" /* yacc.c:1909  */
 };
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

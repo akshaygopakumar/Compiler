@@ -9,9 +9,10 @@
 
 %%
 
-[a-z]+[a-z0-9]*    { strcpy(yylval.character,yytext);return ID;}
 [0-9]+   { yylval.integer = atoi(yytext); return NUM;}
 "read"    { return READ;}
+"int"     {return INT;}
+"boolean" {return BOOL;}
 "write"    {return WRITE;}
 "if"		{return IF;}
 "then"		{return THEN;}
@@ -19,6 +20,8 @@
 "endif"		{return ENDIF;}
 "while"     {return WHILE;}
 "endwhile"  {return ENDWHILE;}  
+"decl"		{return DECL;}
+"enddecl"	{printf("pl");return ENDDECL;}
 [=]         { return ASGN;}
 [+]		{ return PLUS;}
 [-]		{return MINUS;}
@@ -30,6 +33,7 @@
 ">="	{return GE;}
 [>]		{return G;}
 "!="	{return NE;}
+[a-z]+[a-z0-9]*    { printf("asf");yylval.character = malloc(sizeof(yytext));strcpy(yylval.character,yytext);return ID;}
 
 [();\n]   {return *yytext;}
 [ \t]      ;

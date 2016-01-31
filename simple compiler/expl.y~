@@ -1,14 +1,3 @@
-%{
-    #include <stdio.h>
-	#include "expl.h"
-	#include "expl.c"
-	  
-	int yylex(void);
-    int var[26];
-	#define LEAF -1
-	
-%}
-
 %union{
 	  int integer;
 	  char* character;
@@ -16,7 +5,7 @@
 };
                                     
 
-%token MUL PLUS MINUS  DIV READ WRITE ASGN IF THEN ELSE ENDIF L G LE GE NE EQ WHILE ENDWHILE
+%token DECL ENDDECL MUL PLUS MINUS  DIV READ WRITE ASGN IF THEN ELSE ENDIF L G LE GE NE EQ WHILE ENDWHILE BOOL INT
 %token <integer> NUM
 %token <character> ID
 
@@ -27,24 +16,47 @@
 %left MUL DIV
 
 
+%{
+	#include <stdlib.h>
+	#include <string.h>
+    #include <stdio.h>
+	#include "expl.h"
+
+
+	struct Gsymbol *beg;
+	
+	
+	#include "expl.c"
+	
+  
+
+	int yylex(void);
+
+	#define LEAF -1
+	
+%}
+
+
+
 
 %%
 
 
 program:	 //program  expr ';' '\n'				{printf("%d\n",evaluate($2));}		
-			program declaration stmt_list '\n'				{evaluate($2);}
+			declaration stmt_list '\n'				{evaluate($3);}
 			|									{}
 			; 
 
 
-declaration : "decl" decls "enddecl" ; 
+declaration : DECL decls ENDDECL ';' '\n'  
 
 decls		: decls decl ';'
 			  |decl ';'
-
-decl		: INT ID			{Ginstall($2,INTEGER,1,);}
+			  ;
+decl		: INT ID			{Ginstall($2,INTEGER,1);}
 			| INT ID '[' NUM ']' {Ginstall($2,INTEGER,$4);}
-			| BOOL ID
+			| BOOL ID 			{Ginstall($2,BOOLEAN,1);}
+			;
 
 stmt_list: stmt_list stmt  ';' 	{	$$ = makeOperatorNode(INTEGER,'S',0,NULL,$1,$2,NULL); }
 		|stmt ';'				{	$$ = $1 ;}
@@ -74,12 +86,12 @@ expr:	NUM					 	  {$$ = makeLeafNode(INTEGER,LEAF,$1,NULL);}
         | expr MINUS expr           {$$ = makeOperatorNode(INTEGER,MINUS,0,NULL,$1,$3,NULL); }
 		| expr MUL expr           {$$ = makeOperatorNode(INTEGER,MUL,0,NULL,$1,$3,NULL); }
 		| expr DIV expr           {$$ = makeOperatorNode(INTEGER,DIV,0,NULL,$1,$3,NULL); }        
-		| expr L expr           {$$ = makeOperatorNode(INTEGER,L,0,NULL,$1,$3,NULL); }
-        | expr G expr           {$$ = makeOperatorNode(INTEGER,G,0,NULL,$1,$3,NULL); }
-        | expr LE expr           {$$ = makeOperatorNode(INTEGER,LE,0,NULL,$1,$3,NULL); }
-        | expr GE expr           {$$ = makeOperatorNode(INTEGER,GE,0,NULL,$1,$3,NULL); }
-        | expr EQ expr           {$$ = makeOperatorNode(INTEGER,EQ,0,NULL,$1,$3,NULL); }
-        | expr NE expr           {$$ = makeOperatorNode(INTEGER,NE,0,NULL,$1,$3,NULL); }
+		| expr L expr           {$$ = makeOperatorNode(BOOLEAN,L,0,NULL,$1,$3,NULL); }
+        | expr G expr           {$$ = makeOperatorNode(BOOLEAN,G,0,NULL,$1,$3,NULL); }
+        | expr LE expr           {$$ = makeOperatorNode(BOOLEAN,LE,0,NULL,$1,$3,NULL); }
+        | expr GE expr           {$$ = makeOperatorNode(BOOLEAN,GE,0,NULL,$1,$3,NULL); }
+        | expr EQ expr           {$$ = makeOperatorNode(BOOLEAN,EQ,0,NULL,$1,$3,NULL); }
+        | expr NE expr           {$$ = makeOperatorNode(BOOLEAN,NE,0,NULL,$1,$3,NULL); }
 		|'(' expr ')'				{$$=$2;}
 	    ;
 
@@ -88,12 +100,15 @@ expr:	NUM					 	  {$$ = makeLeafNode(INTEGER,LEAF,$1,NULL);}
 
 int main()
 {
+
 yyparse();
 return 0;
 }
 
 
 int evaluate(Node *t){
+
+	struct Gsymbol * symbolTable;
     if(t->NODETYPE == LEAF)
 		{
 		
@@ -101,8 +116,8 @@ int evaluate(Node *t){
 		}
     if(t->NODETYPE== ID)
 		{
-		
-		return var[t->NAME-'a'];
+		symbolTable = Glookup(t->NAME);
+		return *(int *)(symbolTable->BINDING);
 		}
     else{
         switch((t->NODETYPE)){
@@ -116,17 +131,25 @@ int evaluate(Node *t){
             case DIV : return evaluate(t->Ptr1) / evaluate(t->Ptr2);
                        break;
 			case ASGN :	
-						var[t->Ptr1->NAME-'a'] =  evaluate(t->Ptr2);
+						symbolTable = Glookup(t->Ptr1->NAME);
+
+						*(int *)symbolTable->BINDING =  evaluate(t->Ptr2);
 						break;
 
 			case READ: 
-						
-						scanf("%d\n",&var[t->Ptr1->NAME-'a']);
+						symbolTable = Glookup(t->Ptr1->NAME);
+						scanf("%d\n",symbolTable->BINDING);
 						break;
 
 			case WRITE:
-						
-						printf("%d\n",evaluate(t->Ptr1));
+						if(t->Ptr1->NODETYPE == LEAF)
+							{	
+							printf("%d",evaluate(t->Ptr1));
+							break;
+							}
+												
+						symbolTable = Glookup(t->Ptr1->NAME);
+						printf("%d\n",*(int *)symbolTable->BINDING);
 						break;
 
 			case 'S':
