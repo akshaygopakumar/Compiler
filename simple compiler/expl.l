@@ -21,7 +21,7 @@
 "while"     {return WHILE;}
 "endwhile"  {return ENDWHILE;}  
 "decl"		{return DECL;}
-"enddecl"	{printf("pl");return ENDDECL;}
+"enddecl"	{return ENDDECL;}
 [=]         { return ASGN;}
 [+]		{ return PLUS;}
 [-]		{return MINUS;}
@@ -33,10 +33,10 @@
 ">="	{return GE;}
 [>]		{return G;}
 "!="	{return NE;}
-[a-z]+[a-z0-9]*    { printf("asf");yylval.character = malloc(sizeof(yytext));strcpy(yylval.character,yytext);return ID;}
+[a-z]+[a-z0-9]*    {yylval.character = malloc(sizeof(yytext));strcpy(yylval.character,yytext);return ID;}
 
-[();\n]   {return *yytext;}
-[ \t]      ;
+[();]   {return *yytext;}
+[ \t\n]      ;
 
 %%
 

@@ -50,7 +50,7 @@ int TYPE; // TYPE can be INTEGER or BOOLEAN
 
 int SIZE; // Size field for arrays
 
-int BINDING; // Address of the Identifier in Memory
+void* BINDING; // Address of the Identifier in Memory
 
 
 

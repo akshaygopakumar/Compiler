@@ -2,20 +2,30 @@
 Node * makeLeafNode(int TYPE,int NODETYPE,int VALUE,char* NAME)
 {
 	Node *temp;
-	struct Gsymbol *tempSymbol;
-    temp = (Node*) malloc(sizeof(Node));
-	temp->NAME = (char *)malloc(sizeof(char));
-    strcpy(temp->NAME,NAME);
+	
+	 temp = (Node*) malloc(sizeof(Node));
+	if (NODETYPE == ID)
+	{	
+		struct Gsymbol *tempSymbol;
+		
+		tempSymbol = Glookup(NAME);
+		if(tempSymbol==NULL)
+			{
+			printf("The variable %s is not defined\n",NAME);
+			exit(0);	
+			}
+		
+		temp->NAME = (char *)malloc(sizeof(NAME));
+    	strcpy(temp->NAME,NAME);
+	}
+	
+	
+   
+	
 	temp->TYPE = TYPE;
 	temp->NODETYPE = NODETYPE;
 	temp->VALUE=VALUE;
-	if (NODETYPE == ID)
-	{
-		tempSymbol = Glookup(NAME);
-		if(tempSymbol==NULL)
-			printf("The variable is not defined\n");	
-	}
-
+	
 	return temp;
 }
 
@@ -39,17 +49,18 @@ Node * makeOperatorNode(int TYPE,int NODETYPE,int VALUE,char* NAME,Node* Ptr1,No
 
 struct Gsymbol *Glookup(char * NAME)
 {
-	printf("asd\n");
+
 	struct Gsymbol *temp;
 	
 	temp = beg;
 	while(temp!=NULL)
 		{
+			
 			if(strcmp(temp->NAME,NAME)==0)
 				return temp;		
 			temp = temp->NEXT;
 		}
-
+		
 		return NULL;
 }
 
@@ -73,7 +84,7 @@ void Ginstall(char * NAME, int TYPE,int SIZE)
 		newSymbol->BINDING = (int *)malloc(sizeof(int)*SIZE);
 		newSymbol->SIZE = SIZE;
 		newSymbol->NEXT = NULL;
-		beg = newSymbol;printf("asds\n");	
+		beg = newSymbol;	
 		}
 	else
 	{

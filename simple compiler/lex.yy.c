@@ -379,7 +379,7 @@ struct yy_trans_info
 	};
 static yyconst flex_int16_t yy_accept[74] =
     {   0,
-        0,    0,   29,   28,   27,   26,   28,   17,   15,   16,
+        0,    0,   29,   28,   27,   28,   26,   17,   15,   16,
        18,    1,   19,   14,   23,   25,   25,   25,   25,   25,
        25,   25,   25,   24,    1,   20,   21,   22,   25,   25,
        25,   25,   25,   25,    6,   25,   25,   25,   25,   25,
@@ -391,12 +391,12 @@ static yyconst flex_int16_t yy_accept[74] =
 
 static yyconst flex_int32_t yy_ec[256] =
     {   0,
-        1,    1,    1,    1,    1,    1,    1,    1,    2,    3,
+        1,    1,    1,    1,    1,    1,    1,    1,    2,    2,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    2,    4,    1,    1,    1,    1,    1,    1,    3,
-        3,    5,    6,    1,    7,    1,    8,    9,    9,    9,
-        9,    9,    9,    9,    9,    9,    9,    1,    3,   10,
+        1,    2,    3,    1,    1,    1,    1,    1,    1,    4,
+        4,    5,    6,    1,    7,    1,    8,    9,    9,    9,
+        9,    9,    9,    9,    9,    9,    9,    1,    4,   10,
        11,   12,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -430,7 +430,7 @@ static yyconst flex_int32_t yy_meta[29] =
 
 static yyconst flex_int16_t yy_base[76] =
     {   0,
-        0,    0,  130,  131,  131,  131,  118,  131,  131,  131,
+        0,    0,  130,  131,  131,  118,  131,  131,  131,  131,
       131,  119,  116,  115,  114,  115,   20,   21,   23,   24,
        22,   28,   31,  131,  114,  131,  131,  131,    0,  113,
        25,   26,   27,   34,  112,   43,   45,   46,   48,   50,
@@ -488,7 +488,7 @@ static yyconst flex_int16_t yy_chk[160] =
 
        59,   66,   61,   68,   71,   72,   63,   70,   69,   65,
        64,   67,   71,   62,   57,   56,   68,   52,   51,   45,
-       35,   30,   25,   16,   15,   14,   13,   12,    7,    3,
+       35,   30,   25,   16,   15,   14,   13,   12,    6,    3,
        73,   73,   73,   73,   73,   73,   73,   73,   73,   73,
        73,   73,   73,   73,   73,   73,   73,   73,   73,   73,
        73,   73,   73,   73,   73,   73,   73,   73,   73
@@ -852,7 +852,7 @@ YY_RULE_SETUP
 case 13:
 YY_RULE_SETUP
 #line 24 "expl.l"
-{printf("pl");return ENDDECL;}
+{return ENDDECL;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
@@ -912,15 +912,15 @@ YY_RULE_SETUP
 case 25:
 YY_RULE_SETUP
 #line 36 "expl.l"
-{ printf("asf");yylval.character = malloc(sizeof(yytext));strcpy(yylval.character,yytext);return ID;}
+{yylval.character = malloc(sizeof(yytext));strcpy(yylval.character,yytext);return ID;}
 	YY_BREAK
 case 26:
-/* rule 26 can match eol */
 YY_RULE_SETUP
 #line 38 "expl.l"
 {return *yytext;}
 	YY_BREAK
 case 27:
+/* rule 27 can match eol */
 YY_RULE_SETUP
 #line 39 "expl.l"
 ;

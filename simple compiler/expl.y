@@ -2,6 +2,7 @@
 	  int integer;
 	  char* character;
 	  struct Tnode * nodePtr; 
+
 };
                                     
 
@@ -17,12 +18,13 @@
 
 
 %{
+
 	#include <stdlib.h>
 	#include <string.h>
     #include <stdio.h>
 	#include "expl.h"
 
-
+	extern FILE* yyin;
 	struct Gsymbol *beg;
 	
 	
@@ -42,29 +44,32 @@
 %%
 
 
-program:	 //program  expr ';' '\n'				{printf("%d\n",evaluate($2));}		
-			declaration stmt_list '\n'				{evaluate($2);}
+program:		
+			declaration  stmt_list 		{evaluate($2);}
 			|									{}
 			; 
 
 
-declaration : DECL decls ENDDECL ';' '\n'  
+declaration : DECL decls ENDDECL    
+			;
 
 decls		: decls decl ';'
 			  |decl ';'
 			  ;
+
 decl		: INT ID			{Ginstall($2,INTEGER,1);}
 			| INT ID '[' NUM ']' {Ginstall($2,INTEGER,$4);}
 			| BOOL ID 			{Ginstall($2,BOOLEAN,1);}
 			;
 
 stmt_list: stmt_list stmt  ';' 	{	$$ = makeOperatorNode(INTEGER,'S',0,NULL,$1,$2,NULL); }
-		|stmt ';'				{	$$ = $1 ;}
- 
-
+		|stmt  ';'				{	$$ = $1 ;}
+ 		;
+	
 stmt : ID ASGN expr 			{
 									
-									$$ = makeOperatorNode(INTEGER,ASGN,0,NULL,makeLeafNode(INTEGER,ID,0,$1),$3,NULL); 																																					
+									$$ = makeOperatorNode(INTEGER,ASGN,0,NULL,makeLeafNode(INTEGER,ID,0,$1),$3,NULL);
+									 																																					
 								}
      | READ '(' ID ')'			{
 									$$ =  makeOperatorNode(INTEGER,READ,0,NULL,makeLeafNode(INTEGER,ID,0,$3),NULL,NULL);
@@ -100,25 +105,28 @@ expr:	NUM					 	  {$$ = makeLeafNode(INTEGER,LEAF,$1,NULL);}
 
 int main()
 {
-
+yyin = fopen("pr","r");
 yyparse();
 return 0;
 }
 
 
-int evaluate(Node *t){
-
+int evaluate(Node *t)
+{
+	
 	struct Gsymbol * symbolTable;
+
     if(t->NODETYPE == LEAF)
 		{
-		
         return t->VALUE;
 		}
+
     if(t->NODETYPE== ID)
 		{
 		symbolTable = Glookup(t->NAME);
 		return *(int *)(symbolTable->BINDING);
 		}
+
     else{
         switch((t->NODETYPE)){
             case PLUS : 
@@ -132,17 +140,17 @@ int evaluate(Node *t){
                        break;
 			case ASGN :	
 						symbolTable = Glookup(t->Ptr1->NAME);
-
+						
 						*(int *)symbolTable->BINDING =  evaluate(t->Ptr2);
 						break;
 
 			case READ: 
 						symbolTable = Glookup(t->Ptr1->NAME);
-						scanf("%d\n",symbolTable->BINDING);
+						scanf("%d",(int *)symbolTable->BINDING);
 						break;
 
 			case WRITE:
-						if(t->Ptr1->NODETYPE == LEAF)
+						if(t->Ptr1->NODETYPE != ID)
 							{	
 							printf("%d",evaluate(t->Ptr1));
 							break;
